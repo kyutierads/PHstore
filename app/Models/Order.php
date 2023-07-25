@@ -8,13 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
-    public function product()
-    {
-        return $this->hasMany(Product::class,'product_id','id');
-    }
+    // public function product()
+    // {
+    //     return $this->hasMany(Product::class,'product_id','id');
+    // }
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
+    public function products(){
+
+        return $this->belongsToMany(Product::class, 'orderlines', 'order_id', 'product_id')->withPivot('quantity');
+    }
+
+    
 }

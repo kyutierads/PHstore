@@ -3,18 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Payment;
-use App\Models\Shipping;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Models\Product;
+use App\Models\Shipping;
+use Illuminate\Http\Request;
+use App\Mail\OrderPlacedMail;
+use App\Mail\OrderNotification;
+use App\Mail\OrderReceivedMail;
 use Illuminate\Support\Facades\DB;
 
-use App\Mail\OrderReceivedMail;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\View;
 
 class CheckoutController extends Controller
 {
@@ -55,6 +57,7 @@ class CheckoutController extends Controller
                 $product->quantity = $product->quantity - $cart->quantity;
                 $product->save();
             }
+            Mail::to(Auth::user()->email)->send(new OrderPlacedMail($newOrder));
             Cart::where('user_id', $user_id)->delete();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -202,7 +205,7 @@ class CheckoutController extends Controller
 
         if ($order && $order->status === 'intransit') {
             $order->status = 'Received';
-            // $order->save();
+            $order->save();
 
             // Send email notification to user/customer
             try {
