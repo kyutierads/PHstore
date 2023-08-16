@@ -11,7 +11,8 @@
     <title>PhoneHub</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,12 +21,17 @@
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <!-- Styles -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
     <style>
         body {
             background-color: #ffbb00;
         }
     </style>
+    @yield('styles')
 </head>
 
 <body>
@@ -108,39 +114,40 @@
 
 
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
-                            
+
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <!-- Admin Panel Navbar -->
                                     @if (Auth::user()->role == 'admin')
                                         <h6 class="dropdown-header">CRUDs</h6>
                                         <a class="dropdown-item" href="{{ route('viewproducts') }}">Products</a>
-                                        <a class="dropdown-item" href="{{ route('viewbrands') }}">Brands</a>
-                                        <a class="dropdown-item" href="{{ route('viewshippings') }}">Shipping Methods</a>
-                                        <a class="dropdown-item" href="{{ route('viewpayments') }}">Payment Methods</a>
+                                        <a class="dropdown-item" href="{{ route('modal.brand') }}">Brands</a>
+                                        <a class="dropdown-item" href="{{ route('modal.shipping') }}">Shipping Methods</a>
+                                        <a class="dropdown-item" href="{{ route('modal.payment') }}">Payment Methods</a>
                                         <div class="dropdown-divider"></div>
                                     @endif
-                            
+
                                     <h6 class="dropdown-header">Transactions</h6>
                                     <a class="dropdown-item" href="{{ route('viewAllorders') }}">Orders</a>
                                     <a class="dropdown-item" href="{{ route('viewTransactions') }}">Transactions</a>
-                            
+
                                     <div class="dropdown-divider"></div>
-                            
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         Logout
                                     </a>
-                            
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
                                         @csrf
                                     </form>
                                 </div>
                             </li>
-                                
+
 
 
                         @endguest
@@ -154,7 +161,7 @@
         </main>
     </div>
 
-
+    @yield('scripts')
 </body>
 
 

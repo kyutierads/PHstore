@@ -42,7 +42,7 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="payment-method">Payment Method</label>
-                                    <input type="text" id="brand-name" name="type" value=" {{ $payment->type }} " class="form-control" required />
+                                    <input type="text" name="type" value=" {{ $payment->type }} " class="form-control" required />
                                     @error('type')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror

@@ -29,14 +29,20 @@
 
 <body>
     <div class="container mt-5">
+        
         <h2 class="mb-4">Data</h2>
      
         <div class="container">
             {!! $dataTable->table() !!}
+            
         </div>
         {!! $dataTable->scripts() !!}
+       
         
     </div>
+
+    
+    
 </body>
     
 @endsection

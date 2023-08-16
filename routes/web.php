@@ -20,9 +20,7 @@ Route::get('/', function () {
     return redirect()->route('productcollection');
 });
 
-
 Auth::routes();
-
 //Route users
 Route::middleware(['auth', 'user-role:user'])->group(function () {
 
@@ -57,8 +55,9 @@ Route::middleware('auth')->group(function(){
 });
 // Route::middleware('auth')->get('/orders', [App\Http\Controllers\CheckoutController::class,'viewOrders'])->name('orders');
 
-
-
+Route::view('/brand/modaljs','brand.modal.md-index')->name('modal.brand');
+Route::view('/shipping/modaljs','shipping.modal.md-index')->name('modal.shipping');
+Route::view('/payment/modaljs','payment.modal.md-index')->name('modal.payment');
 
 //Brand Crud
 Route::prefix('brand')->group(function () {
@@ -68,6 +67,8 @@ Route::prefix('brand')->group(function () {
     Route::get('/{id}/edit', [App\Http\Controllers\BrandController::class, 'edit'])->name('editbrands');
     Route::post('/{id}', [App\Http\Controllers\BrandController::class, 'update'])->name('updatebrands');
     Route::delete('/{id}', [App\Http\Controllers\BrandController::class, 'destroy'])->name('deletebrands');
+    Route::post('import/index', [App\Http\Controllers\BrandController::class,'importBrands'])->name('import.brands');
+
 });
 //Home collection Categories
 Route::prefix('Category')->group(function(){
@@ -83,6 +84,8 @@ Route::prefix('product')->group(function(){
     Route::get('/{id}/edit',[App\Http\Controllers\ProductController::class,'edit'])->name('editproducts');
     Route::post('/{id}',[App\Http\Controllers\ProductController::class,'update'])->name('updateproducts');
     Route::get('{id}',[App\Http\Controllers\ProductController::class,'destroy'])->name('deleteproducts');
+    Route::post('import/index',[App\Http\Controllers\ProductController::class,'importProducts'])->name('import.products');
+
   
 
 });

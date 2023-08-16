@@ -30,8 +30,8 @@ class ProductDataTable extends DataTable
                 return $product->bname;
             })
             ->addColumn('action', function ($product) {
-                return '<a href="'.route('editbrands',$product->id).'" class="btn btn-success">Edit</a>
-                <form action= "'.route('deletebrands', $product->id).'" method="POST">
+                return '<a href="'.route('editproducts',$product->id).'" class="btn btn-success">Edit</a>
+                <form action= "'.route('deleteproducts', $product->id).'" method="POST">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="_token" value="'.csrf_token().'">
                 <button type="hidden" class="delete btn btn-danger btn-sm">Delete</button>

@@ -21,7 +21,7 @@
             <div class="col-md-12 grid-margin">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Edit Brand
+                        <h4>Edit Product
                             <a href="{{route('viewproducts')}}" class="btn btn-danger btn-sm text-white float-end">Back to lists</a>
                         </h4>
                     </div>

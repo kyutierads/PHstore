@@ -28,17 +28,27 @@
 @section('content')
 
 <body>
+    <form action="{{ route('import.products') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="file" name="excel_file">
+        <button type="submit">Import Products</button>
+    </form>
+    
     <div class="container mt-5">
         <h2 class="mb-4">Data</h2>
-     
+    
+        
         <div class="container">
             {!! $dataTable->table() !!}
         </div>
         {!! $dataTable->scripts() !!}
-        
+       
+        <form action="{{ route('import.products') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="excel_file">
+            <button type="submit">Import Products</button>
+        </form>
     </div>
 </body>
-    
-@endsection
 
-</html>
+@endsection

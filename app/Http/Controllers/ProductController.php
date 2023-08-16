@@ -2,22 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\ProductDataTable;
 use App\Models\Brand;
 use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Livewire\WithPagination;
+use App\Imports\ProductImport;
 use Illuminate\Support\Facades\DB;
+use App\DataTables\ProductDataTable;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\View;
-use App\Http\Requests\ProductRequest;
-
 use function GuzzleHttp\Promise\all;
+use Illuminate\Support\Facades\File;
+
+use Illuminate\Support\Facades\View;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
+
+    public function importProducts(Request $request)
+    {
+        $file = $request->file('excel_file');
+        Excel::import(new ProductImport, $file);
+
+        return redirect()->back()->with('success', 'Products imported successfully.');
+    }
+
+
+
    public function search(Request $request)
    {
     $searchQuery = $request->input('search_query');
